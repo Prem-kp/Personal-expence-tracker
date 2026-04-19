@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PersonalExpenseTracker.ViewModels"
+             x:Class="PersonalExpenseTracker.Views.HomePage"
+             Title=""
+             BackgroundColor="{StaticResource AppSurface}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- Header Banner -->
+            <Grid BackgroundColor="{StaticResource AppCard}" Padding="24,48,24,32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       Text="💰 Expense Tracker"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       CharacterSpacing="2"
+                       TextColor="{StaticResource AppAccentLight}"
+                       Margin="0,0,0,6"/>
+
+                <Label Grid.Row="1"
+                       Text="{Binding TotalAmount, StringFormat='${0:N2}'}"
+                       FontSize="48"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource AppText}"
+                       Margin="0,0,0,4"/>
+
+                <Label Grid.Row="2"
+                       Text="{Binding TotalExpenses, StringFormat='Total across {0} expenses this month'}"
+                       FontSize="13"
+                       TextColor="{StaticResource AppSubText}"/>
+            </Grid>
+
+            <!-- Divider accent line -->
+            <BoxView HeightRequest="3"
+                     Color="{StaticResource AppAccent}"
+                     HorizontalOptions="Fill"/>
+
+            <!-- Quick Actions -->
+            <VerticalStackLayout Padding="20,24,20,0" Spacing="12">
+                <Label Text="Quick Actions"
+                       FontSize="13"
+                       FontAttributes="Bold"
+                       CharacterSpacing="1.5"
+                       TextColor="{StaticResource AppSubText}"
+                       Margin="0,0,0,4"/>
+
+                <!-- Add New Expense -->
+                <Border BackgroundColor="{StaticResource AppAccent}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 16">
+                    <Grid Padding="20,18" ColumnDefinitions="*,Auto">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAddExpenseClicked"/>
+                        </Grid.GestureRecognizers>
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="➕  Add New Expense"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
+                            <Label Text="Log a transaction quickly"
+                                   FontSize="12"
+                                   TextColor="#D0C8FF"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="28" TextColor="White" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- View Expenses -->
+                <Border BackgroundColor="{StaticResource AppCard}"
+                        Stroke="{StaticResource AppCardBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16">
+                    <Grid Padding="20,18" ColumnDefinitions="*,Auto">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnViewExpensesClicked"/>
+                        </Grid.GestureRecognizers>
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="📋  View All Expenses"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource AppText}"/>
+                            <Label Text="Browse and manage your records"
+                                   FontSize="12"
+                                   TextColor="{StaticResource AppSubText}"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="28" TextColor="{StaticResource AppAccentLight}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Manage Categories -->
+                <Border BackgroundColor="{StaticResource AppCard}"
+                        Stroke="{StaticResource AppCardBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16">
+                    <Grid Padding="20,18" ColumnDefinitions="*,Auto">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnManageCategoriesClicked"/>
+                        </Grid.GestureRecognizers>
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="🗂️  Manage Categories"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource AppText}"/>
+                            <Label Text="Organise your spending groups"
+                                   FontSize="12"
+                                   TextColor="{StaticResource AppSubText}"/>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="›" FontSize="28" TextColor="{StaticResource AppAccentLight}" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Footer padding -->
+            <BoxView HeightRequest="40" Color="Transparent"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

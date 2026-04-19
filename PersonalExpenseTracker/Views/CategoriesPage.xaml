@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PersonalExpenseTracker.ViewModels"
+             xmlns:models="clr-namespace:PersonalExpenseTracker.Models"
+             x:Class="PersonalExpenseTracker.Views.CategoriesPage"
+             Title="Categories"
+             BackgroundColor="{StaticResource AppSurface}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+ Add" Command="{Binding AddCategoryCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <CollectionView ItemsSource="{Binding Categories}"
+                        SelectionMode="None"
+                        Margin="16,12">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12"
+                                     Margin="0,80,0,0">
+                    <Label Text="🗂️" FontSize="60" HorizontalOptions="Center"/>
+                    <Label Text="No categories yet"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource AppText}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Tap '+ Add' to create your first category"
+                           FontSize="13"
+                           TextColor="{StaticResource AppSubText}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+                    <SwipeView Margin="0,0,0,10">
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="{StaticResource AppDanger}"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CategoriesViewModel}}, Path=DeleteCategoryCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border BackgroundColor="{StaticResource AppCard}"
+                                Stroke="{StaticResource AppCardBorder}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 14"
+                                Padding="16,14">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CategoriesViewModel}}, Path=EditCategoryCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="52,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                                <!-- Icon bubble -->
+                                <Border BackgroundColor="{StaticResource AppAccent}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        WidthRequest="44" HeightRequest="44"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                    <Label Text="{Binding Icon}"
+                                           FontSize="22"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource AppText}"
+                                       VerticalOptions="Center"/>
+
+                                <Label Grid.Column="2"
+                                       Text="›"
+                                       FontSize="22"
+                                       TextColor="{StaticResource AppSubText}"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

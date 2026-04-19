@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PersonalExpenseTracker.ViewModels"
+             xmlns:models="clr-namespace:PersonalExpenseTracker.Models"
+             x:Class="PersonalExpenseTracker.Views.AddEditExpensePage"
+             Title="New Expense"
+             BackgroundColor="{StaticResource AppSurface}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save ✓" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="16">
+
+            <!-- Title field -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="TITLE"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Entry Text="{Binding TitleStr}"
+                           Placeholder="e.g. Coffee, Groceries…"
+                           PlaceholderColor="{StaticResource AppSubText}"
+                           TextColor="{StaticResource AppText}"
+                           BackgroundColor="Transparent"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Amount field -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="AMOUNT ($)"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Entry Text="{Binding Amount}"
+                           Placeholder="0.00"
+                           PlaceholderColor="{StaticResource AppSubText}"
+                           TextColor="{StaticResource AppSuccess}"
+                           BackgroundColor="Transparent"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Category picker -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="CATEGORY"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Picker ItemsSource="{Binding Categories}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            Title="Select a category"
+                            TitleColor="{StaticResource AppSubText}"
+                            TextColor="{StaticResource AppText}"
+                            BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Date picker -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="DATE"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <DatePicker Date="{Binding Date}"
+                                TextColor="{StaticResource AppText}"
+                                BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Note field -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="NOTE (OPTIONAL)"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Editor Text="{Binding Note}"
+                            Placeholder="Add any extra details…"
+                            PlaceholderColor="{StaticResource AppSubText}"
+                            TextColor="{StaticResource AppText}"
+                            BackgroundColor="Transparent"
+                            HeightRequest="100"
+                            FontSize="14"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Save button -->
+            <Button Text="Save Expense"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="{StaticResource AppAccent}"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="52"
+                    Margin="0,8,0,0"/>
+
+            <BoxView HeightRequest="32" Color="Transparent"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

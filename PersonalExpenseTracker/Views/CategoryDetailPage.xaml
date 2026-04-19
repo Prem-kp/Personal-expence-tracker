@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PersonalExpenseTracker.ViewModels"
+             x:Class="PersonalExpenseTracker.Views.CategoryDetailPage"
+             Title="Category"
+             BackgroundColor="{StaticResource AppSurface}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save ✓" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="16">
+
+            <!-- Emoji preview -->
+            <Border BackgroundColor="{StaticResource AppAccent}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    WidthRequest="80" HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Margin="0,8,0,16">
+                <Label Text="{Binding Icon}"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+
+            <!-- Name field -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="CATEGORY NAME"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Entry Text="{Binding Name}"
+                           Placeholder="e.g. Food, Health, Transport"
+                           PlaceholderColor="{StaticResource AppSubText}"
+                           TextColor="{StaticResource AppText}"
+                           BackgroundColor="Transparent"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Icon / Emoji field -->
+            <Border BackgroundColor="{StaticResource AppCard}"
+                    Stroke="{StaticResource AppCardBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="16,12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="EMOJI ICON"
+                           FontSize="11"
+                           FontAttributes="Bold"
+                           CharacterSpacing="1.5"
+                           TextColor="{StaticResource AppSubText}"/>
+                    <Entry Text="{Binding Icon}"
+                           Placeholder="e.g. 🍕  🏋️  🚌"
+                           PlaceholderColor="{StaticResource AppSubText}"
+                           TextColor="{StaticResource AppText}"
+                           BackgroundColor="Transparent"
+                           FontSize="24"
+                           MaxLength="4"/>
+                    <Label Text="Paste or type a single emoji"
+                           FontSize="11"
+                           TextColor="{StaticResource AppSubText}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Save button -->
+            <Button Text="Save Category"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="{StaticResource AppAccent}"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="52"
+                    Margin="0,8,0,0"/>
+
+            <BoxView HeightRequest="32" Color="Transparent"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

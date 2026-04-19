@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PersonalExpenseTracker.ViewModels"
+             xmlns:models="clr-namespace:PersonalExpenseTracker.Models"
+             x:Class="PersonalExpenseTracker.Views.ExpensesPage"
+             Title="Expenses"
+             BackgroundColor="{StaticResource AppSurface}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+ Add" Command="{Binding AddExpenseCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <CollectionView ItemsSource="{Binding Expenses}"
+                        SelectionMode="None"
+                        Margin="16,12">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12"
+                                     Margin="0,80,0,0">
+                    <Label Text="📋" FontSize="60" HorizontalOptions="Center"/>
+                    <Label Text="No expenses yet"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource AppText}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Tap '+ Add' to log your first expense"
+                           FontSize="13"
+                           TextColor="{StaticResource AppSubText}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Expense">
+                    <SwipeView Margin="0,0,0,10">
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="{StaticResource AppDanger}"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExpensesViewModel}}, Path=DeleteExpenseCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Border BackgroundColor="{StaticResource AppCard}"
+                                Stroke="{StaticResource AppCardBorder}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 14"
+                                Padding="16,14">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ExpensesViewModel}}, Path=EditExpenseCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="52,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                                <!-- Category icon bubble -->
+                                <Border BackgroundColor="{StaticResource AppCard}"
+                                        Stroke="{StaticResource AppAccent}"
+                                        StrokeThickness="2"
+                                        StrokeShape="RoundRectangle 12"
+                                        WidthRequest="44" HeightRequest="44"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                    <Label Text="{Binding Category.Icon}"
+                                           FontSize="22"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+
+                                <!-- Title + date -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource AppText}"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:MMM dd, yyyy}'}"
+                                           FontSize="12"
+                                           TextColor="{StaticResource AppSubText}"/>
+                                    <Label Text="{Binding Category.Name}"
+                                           FontSize="11"
+                                           TextColor="{StaticResource AppAccentLight}"/>
+                                </VerticalStackLayout>
+
+                                <!-- Amount -->
+                                <Label Grid.Column="2"
+                                       Text="{Binding Amount, StringFormat='${0:N2}'}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource AppSuccess}"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
